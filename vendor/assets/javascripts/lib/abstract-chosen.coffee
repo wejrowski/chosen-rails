@@ -30,6 +30,9 @@ class AbstractChosen
     @display_selected_options = if @options.display_selected_options? then @options.display_selected_options else true
     @display_disabled_options = if @options.display_disabled_options? then @options.display_disabled_options else true
 
+    @edit_choice = @options.edit_choice
+    @edit_result = @options.edit_result
+
   set_default_text: ->
     if @form_field.getAttribute("data-placeholder")
       @default_text = @form_field.getAttribute("data-placeholder")
@@ -88,6 +91,7 @@ class AbstractChosen
     option_el.style.cssText = option.style
     option_el.setAttribute("data-option-array-index", option.array_index)
     option_el.innerHTML = option.search_text
+    option_el = @edit_result(option_el, option) if @edit_result
 
     this.outerHTML(option_el)
 
